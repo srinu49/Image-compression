@@ -4,7 +4,9 @@ import uuid
 from PIL import Image  
 import PIL  
 import requests
-from django.http import HttpResponse
+# from django.http import HttpResponse
+# from django.http import FileResponse
+import shutil
 
 from minio import Minio
 import ffmpeg
@@ -69,14 +71,35 @@ def handle(st):
     # fin = f.write("datacompressed.jpg")
     f.save("datacompressed.jpg")
     # f.close()
-    with open('./datacompressed.jpg','rb') as fi:
-        return HttpResponse(fi.read(), content_type="image/jpg")
+    with open(f'/tmp/{my_uuid }_compressed_{file_name}','rb') as rf:
+        with open('./datacompressed.jpg','wb') as wf:
+            for line in rf: 
+                wf.write(line)
+            # shutil.copyfileobj(rf.write().decode('utf-8'), wf)
+            return print('Image sucessfully Downloaded: ',file_name)
+
+        # return HttpResponse(fi.read(), content_type="image/jpg")
+       
+   
+
+    # img = open('./datacompressed.jpg','rb')      HttpResponse(status=200)
+    # response =  FileResponse(img)
+    # return response
     # res = requests.post(url = 'http://localhost:8080/function/vid-compress/home/app/datacompressed.jpg', data =data, headers={'Content-Type':'image/jpeg'})
     # return res
     # pic = picture.save("datacompressed.jpg") 
     # f=open(f"/tmp/{my_uuid}_compressed_{file_name}", "wb")
+    # path = f"/tmp/{my_uuid}_compressed_{file_name}"
+    # with open("required.jpg", "wb") as imf:
+    #    return imf.write(path)
     # f.write()
     # f.close()
+
+    # with open('./datacompressed.jpg','wb') as f:
+    #     shutil.copyfileobj(fi.read(), f)
+    # print('Image sucessfully Downloaded: ',file_name)
+
+    # return HttpResponse(status=200)
     #  return fin
     # return f"/tmp/{my_uuid}_compressed_{file_name}"
     # return res

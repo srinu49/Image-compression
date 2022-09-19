@@ -2,4 +2,4 @@ ffmpeg-python
 minio
 requests
 Pillow
-Django
+pytest-shutil
