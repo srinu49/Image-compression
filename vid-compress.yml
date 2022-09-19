@@ -1,0 +1,19 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  vid-compress:
+    lang: dockerfile
+    handler: ./vid-compress
+    image: srinivasuoh/vid-compress:latest
+    environment:
+      write_debug: true
+      minio_hostname: "my-minio-fs.default.svc.cluster.local:9000"
+      minio_access_key: "minio"
+      minio_secret_key: "minio123"
+      source_bucket: "source-videos"
+      dest_bucket: "compressed-videos"
+      content_type: "image/jpe"
+       
+    
